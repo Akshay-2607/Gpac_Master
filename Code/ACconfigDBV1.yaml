@@ -1,0 +1,58 @@
+
+file_paths:
+  gpac_master:
+    file: "C:/Users/dhanv/OneDrive/Desktop/GPAC Master V4.xlsx"
+    sheets:
+      asset_class_mapping: "GPAC Master Asset Class"
+      client_asset_class_mapping: "Client_Asset_Class Mapping"
+
+  input_data: "C:/Users/dhanv/OneDrive/Desktop/TBR_testing_data.csv"
+
+tagging_priority:
+  client_product_code:
+    enabled: true
+    column_name: "CLIENT_ASSET_CLASS"
+
+  keyword_attribute_country_combination:
+    enabled: true
+    apply_order: ["keyword_matching"]
+
+column_priority:
+  primary_columns:
+    - "CD_INSTMT_TYPE"
+    - "CLIENT_ASSET_CLASS"
+    - "CLIENT_PRODUCT_TYPE"
+    - "CLIENT_ASSET_CLASS_NAME"
+    - "CLIENT_ASSET_SUBCLASS_NAME"
+    - "CLIENT_SEC_TYPE"        # Newly added
+    - "CLIENT_SEC_TYPE2"       # Newly added
+    - "CLIENT_SEC_TYPE3"       # Newly added
+    - "CD_INSTMT_TYPE"         # Newly added
+  fallback_columns:
+    - "DESC_INSTMT"
+    - "ISSUE_COUNTRY"
+    - "ASSET_CURRENCY"
+    - "ASSET_REGION_NAME"
+    - "KNOWLEDGE_EXPERIENCE"
+    - "ISLAMIC_PRODUCT"
+    - "NON_DELIVERABLE"
+    - "PARTICIPATION_CERTIFICATE"
+
+keyword_matching:
+  frequency_threshold: 1
+  stop_words: ["is", "for", "like", "on", "and", "the", "in"]
+
+attribute_mapping:
+  enabled: false
+
+country_mapping:
+  enabled: false
+
+tagging_columns:
+  - "GPAC_Asset_Class_Level1"
+  - "GPAC_Asset_Class_Level2"
+  - "GPAC_Asset_Class_Level3"
+
+logging:
+  log_file: "asset_class_tagging_process.log"
+  level: "DEBUG"

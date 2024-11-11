@@ -1,0 +1,82 @@
+# === GPAC Tagging System Configuration ===
+# This file configures the hierarchical tagging process for classifying 
+# financial assets. It defines the order of tagging operations, 
+# column priorities, keyword matching settings, and attribute/country mappings.
+
+version: 2.2  # Configuration file version
+
+# -------------------------------------------
+# 1. FILE PATHS
+# -------------------------------------------
+file_paths:
+  gpac_master: "path/to/GPAC_Master.csv"
+  country_mapping: "path/to/Country_Mapping.csv"
+  input_data: "path/to/Input_Data.csv"
+
+# -------------------------------------------
+# 2. TAGGING LOGIC
+# -------------------------------------------
+tagging_logic:
+
+  # 2.1 Client Product Code Tagging
+  - client_product_code:
+      enabled: true
+      column_name: "CLIENT_PRODUCT_CODE"  
+
+  # 2.2 Keyword Matching
+  - keyword_matching:
+      enabled: true
+      frequency_threshold: 3
+      stop_words: ["is", "for", "like", "on", "and", "the", "in"]
+
+  # 2.3 Attribute Mapping (Includes former fallback columns)
+  - attribute_mapping:
+      enabled: true
+      fields:
+        - "issuer_domicile" 
+        - "credit_rating"
+        - "coupon_type"
+        - "maturity"
+        - "sector"
+        - "ISSUE_COUNTRY" 
+        - "ASSET_CURRENCY"  
+        - "ASSET_REGION_NAME" 
+        - "KNOWLEDGE_EXPERIENCE"  
+        - "ISLAMIC_PRODUCT" 
+        - "NON_DELIVERABLE"  
+        - "PARTICIPATION_CERTIFICATE" 
+
+
+  # 2.4 Country Mapping
+  - country_mapping:
+      enabled: true
+
+# -------------------------------------------
+# 3. COLUMN PRIORITY
+# -------------------------------------------
+column_priority:
+  primary_columns:
+    - "CD_INSTMT_TYPE"
+    - "CLIENT_ASSET_CLASS"
+    - "CLIENT_PRODUCT_TYPE"
+    - "CLIENT_ASSET_CLASS_NAME"
+    - "CLIENT_ASSET_SUBCLASS_NAME"
+  fallback_columns:
+    - "DESC_INSTMT"  # Only DESC_INSTMT remains here
+
+# -------------------------------------------
+# 4. CONTEXTUAL COLUMN NAME MAPPING
+# -------------------------------------------
+contextual_mapping:
+  asset: ["asset", "security", "instrument", "sec"] 
+  product: ["product", "instrument_type", "security_type", "cd_instrument"]  
+  description: ["description", "desc", "security_details"]
+  issuer: ["issuer", "issuer_name", "originator"]
+  country: ["country", "region", "domicile"]  
+  cocos: ["cocos"] 
+  islamic_product: ["islamic", "sharia"]  
+
+# -------------------------------------------
+# 5. ADDITIONAL SETTINGS (Optional)
+# -------------------------------------------
+# ... (Add any other global settings here) ...
